@@ -1,65 +1,95 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var connectAssets = require('connect-assets');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
+var express = require("express");
+// var session = require('express-session');
 var app = express();
+var http = require("http").createServer(app);
+var bodyParser = require("body-parser");
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// var passport = require('passport');
+// var _ = require("underscore");
+// var MongoStore = require('connect-mongo')({ session: session });
+var mongoose = require('mongoose');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+// /**
+//  * API keys and Passport configuration.
+//  */
+
+// var secrets = require('./config/secrets');
+// var passportConf = require('./config/passport');
+
+/**
+ * Connect to MongoDB.
+ */
+
+// mongoose.connect(secrets.db);
+// mongoose.connection.on('error', function() {
+//   console.error('MongoDB Connection Error. Make sure MongoDB is running.');
+// });
+// var User = require('./models/User');
+
+app.set("ipaddr", "127.0.0.1");
+app.set("port", 8080);
+
+app.set("views", __dirname + "/views");
+app.set("view engine", "jade");
+//Specify where the static content is
+app.use(express.static("public", __dirname + "/public"));
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(connectAssets({
-    paths: [path.join(__dirname, 'public/css'), path.join(__dirname, 'public/js')],
-    helperContext: app.locals
-}));
 
-app.use('/', routes);
-app.use('/users', users);
+// app.use(session({secret: secrets.sessionSecret, resave: true, saveUninitialized: true}));
+// // Initialize Passport!  Also use passport.session() middleware, to support
+// // persistent login sessions (recommended).
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+//route homepage
+app.get("/", function(req, res) {
+  res.render("index");
 });
 
-// error handlers
+// // GET /auth/windowslive
+// //   Use passport.authenticate() as route middleware to authenticate the
+// //   request.  The first step in Windows Live authentication will involve
+// //   redirecting the user to live.com.  After authorization, Windows Live
+// //   will redirect the user back to this application at
+// //   /auth/windowslive/callback
+// app.get('/auth/windowslive',
+//   passport.authenticate('windowslive', { scope: ['wl.signin', 'wl.basic'] }),
+//   function(req, res){
+//     // The request will be redirected to Windows Live for authentication, so
+//     // this function will not be called.
+//   });
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
-    });
-}
+// // GET /auth/windowslive/callback
+// //   Use passport.authenticate() as route middleware to authenticate the
+// //   request.  If authentication fails, the user will be redirected back to the
+// //   login page.  Otherwise, the primary route function function will be called,
+// //   which will redirect the user to the hub page.
+// app.get('/auth/windowslive/callback', 
+//   passport.authenticate('windowslive', { failureRedirect: '/' }),
+//   function(req, res) {
+//     res.redirect('/hub');
+//   });
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+// app.get('/logout', function(req, res){
+//   req.logout();
+//   res.redirect('/');
+// });
+
+// //route boards
+// app.get("/board", function(req, res) {
+//   res.render("board", { user: req.user });
+// });
+
+// app.get("/hub", function(req, res) {
+//   if (!req.user) {
+//     res.redirect('/');
+//   }
+//   req.user._id = req.user._id.toHexString();
+//   console.log(req.user)
+//   res.render("hub", { user: req.user });
+// });
+
+http.listen(app.get("port"), app.get("ipaddr"), function() {
+  console.log("Server up and running. Go to http://" + app.get("ipaddr") + ":" + app.get("port"));
 });
-
-
-module.exports = app;
