@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  #container.col
+    h1 Registration
+
+    form(name='input')
+      input(type='text', name='username', value='Username')
+      br
+      input(type='password', name='password', value='Password')
+      br
+      input(type='text', name='patient', value="Patient's name")
+      br
+      input(type='submit', id='register', value='Register')

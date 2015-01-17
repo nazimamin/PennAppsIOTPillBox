@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  #container.col
+    h1 Welcome
+
+    form(name='input')
+      input(type='text', name='username', value='Username')
+      br
+      input(type='password', name='password', value='Password')
+      br
+      input(type='submit', id='Log in', value='Log in')
+
+    br
+
+    p Don't have an account yet? Register 
+      a(href='register.html') here
