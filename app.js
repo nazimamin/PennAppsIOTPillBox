@@ -47,6 +47,14 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
+app.get("/login", function(req, res) {
+  res.render("login");
+});
+
+app.get("/register", function(req, res) {
+  res.render("register");
+});
+
 // // GET /auth/windowslive
 // //   Use passport.authenticate() as route middleware to authenticate the
 // //   request.  The first step in Windows Live authentication will involve
