@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var connectAssets = require('connect-assets');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +22,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(connectAssets({
+    paths: [path.join(__dirname, 'public/css'), path.join(__dirname, 'public/js')],
+    helperContext: app.locals
+}));
 
 app.use('/', routes);
 app.use('/users', users);
