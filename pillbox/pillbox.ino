@@ -8,6 +8,7 @@ By Nazim Amin and Matthew Del Signore
 **/
 
 int resistorValue; //the value we get from the photoresistor
+int currentLED; //the led that should be blinking for the current day
 
 int SUNDAY = 0; //PWM slot for the LED for sunday
 int MONDAY = 1;
@@ -20,6 +21,11 @@ int SATURDAY = 6;
 void setup() {
   //start reading serial data
   Serial.begin(9600);
+  
+  //load all the pin for led's as output
+   for(int k=2;k<9;k++){ //turn off all the 
+    pinMode(k,OUTPUT);
+  }
 
 }
 
@@ -34,6 +40,16 @@ void loop() {
   Serial.print(day(now()));
   Serial.print("\n");
   
-  //wait 100ms
-  delay(100);
+  currentLED = day(now()) +1; //get the current day and subtract one to get the right pwm slot
+  
+  for(int k=2;k<9 ;k++){ //turn off all the 
+  if(k!=currentLED)
+    digitalWrite(k,LOW);
+  }
+  
+  //turn on only the led for the current day
+  digitalWrite(currentLED,HIGH);
+  
+  //wait 5 s
+  delay(5000);
 }
