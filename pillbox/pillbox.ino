@@ -15,6 +15,8 @@ By Nazim Amin and Matthew Del Signore
 
 int resistorValue; //the value we get from the photoresistor
 int currentLED=0; //the led that should be blinking for the current day
+int threshold = 400; //the threshold of whether or not a pill box is filled
+boolean filled[7]; //and array of which compartment is filled and which isn't
 
 int SUNDAY = 0; //PWM slot for the LED for sunday
 int MONDAY = 1;
@@ -69,6 +71,34 @@ void loop() {
   
   //start the client 
   WiFiClient client = server.available();
+    
+  /*resistorValue = analogRead(0); //read in analog input at point 0
+  Serial.print(resistorValue);
+  Serial.print(" "); */
+  
+  Serial.print("the current date is");
+  Serial.print(day(now()));
+  Serial.print("\n");
+  
+  currentLED = day(now()) +1; //get the current day and subtract one to get the right pwm slot
+  
+  Serial.print(currentLED);
+  
+  for(int k=2;k<9 ;k++){ //turn off all the 
+  if(k!=currentLED)
+    digitalWrite(k,LOW);
+  }
+  
+  //turn on only the led for the current day
+  digitalWrite(currentLED,HIGH);
+  
+  
+  //now check to see which compartments are filled
+  for(int k=0; k<6;k++){
+    if(analogRead(k)<threshold){
+      filled[k] = true;
+    }
+  }
   
   if(client){ //if there is a client
     Serial.println("new client connected");
@@ -98,6 +128,19 @@ void loop() {
           client.print(currentLED);
           client.println("</br>");
           
+          //loop through and print out the status of each compartment
+          for(int k = 0; k<7;k++){
+            client.print("Day ");
+            client.print(k);
+            client.print(" is ");
+            if(filled[k]){
+              client.print("filled");
+            }else{
+              client.print("empty");
+            }
+            client.print("</br>"); //make sure this is correct
+          }
+          
           client.println("</html>");
            break;
         }
@@ -117,30 +160,9 @@ void loop() {
     client.stop(); //disconnect the client
     Serial.println("client disconnected");
   }
-    
-  
-  /*resistorValue = analogRead(0); //read in analog input at point 0
-  Serial.print(resistorValue);
-  Serial.print(" "); */
-  
-  Serial.print("the current date is");
-  Serial.print(day(now()));
-  Serial.print("\n");
-  
-  currentLED = day(now()) +1; //get the current day and subtract one to get the right pwm slot
-  
-  Serial.print(currentLED);
-  
-  for(int k=2;k<9 ;k++){ //turn off all the 
-  if(k!=currentLED)
-    digitalWrite(k,LOW);
-  }
-  
-  //turn on only the led for the current day
-  digitalWrite(currentLED,HIGH);
   
   //wait 5 s
-  delay(5000);
+  delay(5);
 }
 
 
