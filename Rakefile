@@ -1,5 +1,5 @@
 require 'rubygems'
 require 'twilio-ruby'
 require 'sqlite3'
-require 'activerecord'
+require 'sinatra-activerecord'
 require 'warden'
