@@ -42,6 +42,8 @@ void loop() {
   
   currentLED = day(now()) +1; //get the current day and subtract one to get the right pwm slot
   
+  Serial.print(currentLED);
+  
   for(int k=2;k<9 ;k++){ //turn off all the 
   if(k!=currentLED)
     digitalWrite(k,LOW);
