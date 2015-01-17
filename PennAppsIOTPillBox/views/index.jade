@@ -1,5 +1,32 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	#container.col
+		h1 IOTPillBox
+		p Welcome to ____'s Page
+		//____ is whatever was put into 'patient' in the registration page
+
+		br
+
+		#status
+			//
+				put in status message here
+				if patient has taken today's pills:
+					____ has taken today's pills.
+				else if patient has taken a different day's pills:
+					____ has taken a different day's pills!
+				else:
+					____ has not taken today's pills yet.
+		#userAlert
+			p If you would like to alert ___ to take today's pills, please click the button below.
+			input(type='submit', name='alert', value='Sent Alert')
+
+//
+	we also need a functionality that,
+		if a different day's pills have been taken,
+		or if it passes some arbitrary time like 9:00pm or 10:00pm
+	will alert the family with a text message saying:
+		____ has taken a different day's pills!
+		or
+		____ has not taken today's pills yet.
+		depending on what actually happened, of course
