@@ -1,17 +1,23 @@
 extends layout
+block stylesheet
+  link(rel='stylesheet', href='/css/login.css')
 
 block content
   #container.col
-    h1 Welcome
+    #description
+      h1(class='page_title') IOTPillBox
+      p(id='description_text').
+        Watch your loved ones' medication use so you can rest assured that they'll
+        stay happy and healthy.
+    #loginArea
+      h1(id='welcome') Welcome
 
-    form(name='input')
-      input(type='text', name='username', value='Username')
+      form(name='input')
+        input(type='image', src="../img/facebook_button.jpg", class='button', id='facebook')
+        br
+        input(type='submit', class='button', id='google')
+
       br
-      input(type='password', name='password', value='Password')
-      br
-      input(type='submit', id='Log in', value='Log in')
 
-    br
-
-    p Don't have an account yet? Register 
-      a(href='register') here
+      p Don't have an account yet? Register 
+        a(href='register') here
