@@ -1,5 +1,6 @@
 var passport = require('passport');
-var WindowsLiveStrategy = require('passport-windowslive').Strategy; //Microsoft
+var FacebookStrategy = require('passport-facebook').Strategy; //Facebook
+var GoogleStrategy = require('passport-google').Strategy; //Google
 var User = require('../models/User');
 var secrets = require('./secrets');
 
@@ -22,40 +23,67 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-passport.use(new WindowsLiveStrategy({
-    clientID: secrets.microsoft.clientID,
-    clientSecret: secrets.microsoft.clientSecret,
-    callbackURL: "http://winger.ngrok.com/auth/windowslive/callback"
+passport.use(new FacebookStrategy({
+    clientID: secrets.facebook.clientID,
+    clientSecret: secrets.facebook.clientSecret,
+    callbackURL: "localhost:8080/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({
-        id: profile.id 
-    }, function(err, user) {
-        if (err) {
-            return done(err);
-        }
-        //No user was found... so create a new user with values from Facebook (all the profile. stuff)
-        if (!user) {
-          console.log(profile.photos[0].value);
-          user = new User({
-              id: profile.id,
-              name: profile.displayName,
-              photo: profile.photos[0].value,
-              provider: 'microsoft',
-              //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
-              microsoft: profile._json
-          });
-          user.save(function(err) {
-              if (err) console.log(err);
-              return done(err, user);
-          });
-        } else {
-            //found user. Return
-            return done(err, user);
-        }
+    User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+      if (err) {
+        return done(err);
+      }
+
+      done(null, user);
     });
   }
 ));
+
+passport.use(new GoogleStrategy({
+    returnURL: 'localhost:8080/auth/google/return',
+    realm: 'localhost:8080/'
+  },
+  function(identifier, profile, done) {
+    User.findOrCreate({ openId: identifier }, function(err, user) {
+      done(err, user);
+    });
+  }
+));
+
+// passport.use(new WindowsLiveStrategy({
+//     clientID: secrets.microsoft.clientID,
+//     clientSecret: secrets.microsoft.clientSecret,
+//     callbackURL: "http://winger.ngrok.com/auth/windowslive/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     User.findOne({
+//         id: profile.id 
+//     }, function(err, user) {
+//         if (err) {
+//             return done(err);
+//         }
+//         //No user was found... so create a new user with values from Facebook (all the profile. stuff)
+//         if (!user) {
+//           console.log(profile.photos[0].value);
+//           user = new User({
+//               id: profile.id,
+//               name: profile.displayName,
+//               photo: profile.photos[0].value,
+//               provider: 'microsoft',
+//               //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
+//               microsoft: profile._json
+//           });
+//           user.save(function(err) {
+//               if (err) console.log(err);
+//               return done(err, user);
+//           });
+//         } else {
+//             //found user. Return
+//             return done(err, user);
+//         }
+//     });
+//   }
+// ));
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
