@@ -53,7 +53,7 @@ app.get("/", ensureAuthenticated, function(req, res) {
   req.user.save();
   res.render("index", {
     user: req.user,
-    title: 'Pill Stats!'
+    title: 'PillStacks'
   });
 });
 
