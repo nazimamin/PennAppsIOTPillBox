@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
-  photo: String,
+  // photo: String,
   id: String,
   email: { type: String, default: '' },
 
@@ -9,7 +9,9 @@ var userSchema = new mongoose.Schema({
   facebook: String,
   google: String,
   tokens: Array,
-  name: { type: String, default: '' }
+  name: { type: String, default: '' },
+  patient: String,
+  pillbox: { type: Array, default: [false, false, false, false, false, false, false] }
 
   // profile: {
   //   gender: { type: String, default: '' },
