@@ -1,18 +1,44 @@
+body {
+	background: url("../img/autumn-leaves.jpg");
+	background-size: 100%;
+}
+
 .heading {
-	margin-top: -6%;
-	margin-bottom: 4%;
+	margin-top: -20px;
+	margin-bottom: 50px;
+	color: white;
+	text-shadow:
+		-1px -1px 0 black,
+		-1px 1px 0 black,
+		1px -1px 0 black,
+		1px 1px 0 black;
 }
 
 #status {
-	width: 50%;
+	width: 600px;
 	text-align: center;
-	margin: -2% auto 5%;
+	margin: -40px auto 30px;
 	background: #CEEAFD;
 	border-radius: 20px;
-	padding: 8%;
+	padding: 75px;
+}
+
+#user_alert {
+	margin: 60px 110px -60px;
+	background-color: #FFF8A8;
+	border-radius: 20px;
+	padding: 5px;
+}
+
+#alert_description {
+	font-size: 24px;
 }
 
 #alert {
-	padding: 1.5% 7%;
+	padding: 20px 75px;
 	margin-top: 5px;
+	border-radius: 20px;
+	background-color: #F2738C;
+	border-style: none;
+	font-size: 24px;
 }

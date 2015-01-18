@@ -1,7 +1,12 @@
+body {
+	background: url("../img/autumn-forest.jpg");
+	background-size: 100%;
+}
+
 #container {
-	width: 30%;
-	margin: 3% auto;
+	width: 380px;
+	margin: 30px auto;
 	background: #CEEAFD;
-	padding: 2%;
+	padding: 30px;
 	border-radius: 20px;
 }
