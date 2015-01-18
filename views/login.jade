@@ -5,21 +5,16 @@ block stylesheet
 block content
   #container.col
     #description
-      h1(class='page_title') IOTPillBox
-      p(id='description_text').
+      h1.page_title IOTPillBox
+      p#description_text.
         Watch your loved ones' medication use so you can rest assured that they'll
         stay happy and healthy.
     #loginArea
-      h1(id='welcome') Welcome
+      h1#welcome Welcome
 
       form(name='input')
         a(href="/auth/facebook")
-          img(src="../img/facebook_button.jpg")
+          img(src="../img/facebook_button.jpg", class='button', id='facebook')
         br
         a(href="/auth/google")
-          img(src="../img/google_button.jpg")
-
-      br
-
-      p Don't have an account yet? Register 
-        a(href='register') here
+          img(src="../img/google_button.png", class='button', id='google')

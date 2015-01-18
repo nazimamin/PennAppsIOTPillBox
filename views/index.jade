@@ -1,14 +1,18 @@
 extends layout
+block stylesheet
+	link(rel='stylesheet', href='/css/index.css')
 
 block content
 	#container.col
-		h1 IOTPillBox
-		p Welcome to ____'s Page
-		//____ is whatever was put into 'patient' in the registration page
+		.heading
+			h1.page_title IOTPillBox
+			h2 Welcome to ____'s Page
+			//____ is whatever was put into 'patient' in the registration page
 
 		br
 
 		#status
+			h2 It looks like you're not connected to an Arduino device.
 			//
 				put in status message here
 				if patient has taken today's pills:
@@ -19,7 +23,7 @@ block content
 					____ has not taken today's pills yet.
 		#userAlert
 			p If you would like to alert ___ to take today's pills, please click the button below.
-			input(type='submit', name='alert', value='Send Alert')
+			input(type='submit', name='alert', value='Send Alert', class='button', id='alert')
 
 //
 	we also need a functionality that,
