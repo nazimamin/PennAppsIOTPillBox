@@ -13,9 +13,11 @@ block content
       h1(id='welcome') Welcome
 
       form(name='input')
-        input(type='image', src="../img/facebook_button.jpg", class='button', id='facebook')
+        a(href="/auth/facebook")
+          img(src="../img/facebook_button.jpg")
         br
-        input(type='submit', class='button', id='google')
+        a(href="/auth/google")
+          img(src="../img/google_button.jpg")
 
       br
 
