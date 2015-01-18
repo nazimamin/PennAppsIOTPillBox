@@ -15,8 +15,10 @@ By Nazim Amin and Matthew Del Signore
 
 int resistorValue; //the value we get from the photoresistor
 int currentLED=0; //the led that should be blinking for the current day
-int threshold = 400; //the threshold of whether or not a pill box is filled
+int threshold = 300; //the threshold of whether or not a pill box is filled
+int openedThreshold  = 80; //threshold for if the box is opened
 boolean filled[7]; //and array of which compartment is filled and which isn't
+boolean boxopened = false;  //whether or not the box is open
 
 int SUNDAY = 0; //PWM slot for the LED for sunday
 int MONDAY = 1;
@@ -69,6 +71,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly: 
   
+  boxopened = false;
   //start the client 
   WiFiClient client = server.available();
     
@@ -84,14 +87,18 @@ void loop() {
   
   Serial.print(currentLED);
   
-  for(int k=2;k<9 ;k++){ //turn off all the 
+  //check to see if the box is opened
+  for(int k=0; k<7;k++){
+    if(analogRead(k)>openedThreshold){
+      boxopened == true;
+    }
+  }
+  
+  if(boxopened == false){
+  for(int k=2;k<9 ;k++){ //turn on all the leds 
   if(k!=currentLED)
     digitalWrite(k,HIGH);
   }
-  
-  //turn on only the led for the current day
-  digitalWrite(currentLED,HIGH);
-  
   
   //now check to see which compartments are filled
   for(int k=0; k<6;k++){
@@ -161,6 +168,7 @@ void loop() {
   
   //wait 5 s
   delay(5);
+  }
 }
 
 
