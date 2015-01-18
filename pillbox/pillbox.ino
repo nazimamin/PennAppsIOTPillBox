@@ -28,8 +28,8 @@ int THURSDAY = 4;
 int FRIDAY =  5;
 int SATURDAY = 6;
 
-char ssid[] = "yourNetwork";      // SSID (name) 
-char pass[] = "secretPassword";   // network password
+char ssid[] = "pennpillbox";      // SSID (name) 
+char pass[] = "12345678";   // network password
 int keyIndex = 0;                 // network key Index number (needed only for WEP)
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);
@@ -90,13 +90,12 @@ void loop() {
   //check to see if the box is opened
   for(int k=0; k<7;k++){
     if(analogRead(k)>openedThreshold){
-      boxopened == true;
+      //boxopened == true;
     }
   }
   
   if(boxopened == false){
   for(int k=2;k<9 ;k++){ //turn on all the leds 
-  if(k!=currentLED)
     digitalWrite(k,HIGH);
   }
   
@@ -106,7 +105,7 @@ void loop() {
       filled[k] = true;
     }
   }
-  
+  /**
   if(client){ //if there is a client
     Serial.println("new client connected");
     
@@ -138,9 +137,9 @@ void loop() {
             client.print("\" ");
             client.print(" : ");
             if(filled[k]){
-              client.print(" \"filled\"");
+              client.print(" \"true\"");
             }else{
-              client.print(" \"empty\"");
+              client.print(" \"false\"");
             }
             
             client.println("}");
@@ -164,10 +163,14 @@ void loop() {
     delay(1);
     client.stop(); //disconnect the client
     Serial.println("client disconnected");
-  }
+  }**/
   
   //wait 5 s
   delay(5);
+  }else{
+    //if the box is opened then only turn on the light of the current day
+    currentLED = day(now())+1;  //TODO: check that this value is correct
+    digitalWrite(currentLED, HIGH);
   }
 }
 
