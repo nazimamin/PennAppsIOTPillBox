@@ -1,0 +1,16 @@
+extends layout
+block stylesheet
+  link(rel='stylesheet', href='/css/register.css')
+
+block content
+  #container.col
+    h1 Registration
+    br
+    p It looks like your account isn't connected to anyone yet. Enter the info below to get started.
+    br
+    form(name='input')
+      input(type='text', name='patient', value='Patient Name')
+      br
+      input(type='submit', id='register', value='Register')
+
+//We also need a form to connect an account to an arduino

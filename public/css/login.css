@@ -1,0 +1,33 @@
+body {
+	background: url("../img/login_pic.jpg") no-repeat;
+	background-size: 100%;
+}
+
+#loginArea {
+	background: #CEEAFD;
+	padding: 2%;
+	float: right;
+	width: 30%;
+	border-radius: 20px;
+	margin-right: 2%;
+}
+
+#description {
+	width: 60%;
+	float: left;
+	padding: 2%;
+	margin-left: -4.5%;
+}
+
+#description_text {
+	font-size: 32px;
+}
+
+#login_background {
+	background-image: url("../img/login_pic.jpg");
+}
+
+#google {
+	width: 51%;
+	margin-bottom: -3%;
+}

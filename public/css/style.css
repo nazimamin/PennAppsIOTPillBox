@@ -1,0 +1,19 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#container {
+	margin: 5% auto;
+	text-align: center;
+}
+
+.page_title {
+	font-size: 48px;
+}
+
+.button {
+	padding: 2% 18%;
+	margin: 2%;
+	font-size: 18px;
+}

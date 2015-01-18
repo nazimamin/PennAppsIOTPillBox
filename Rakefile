@@ -1,5 +1,0 @@
-require 'rubygems'
-require 'twilio-ruby'
-require 'sqlite3'
-require 'sinatra-activerecord'
-require 'warden'
