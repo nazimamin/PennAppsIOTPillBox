@@ -1,7 +1,13 @@
 extends layout
 block stylesheet
-	link(rel='stylesheet', href='/css/deliver.css')
+  link(rel='stylesheet', href='/css/deliver.css')
 
 block content
-	#container.col
-		h3 A courier has been sent!
+  #container.col
+    form(method="POST", action="/deliver")
+      h3 Enter #{user.patient}'s home address:
+      input(type="text", name="homeaddress")
+      h3 Enter #{user.patient}'s pharmacy's address:
+      input(type="text", name="pharmaddress")
+      br
+      input(type="submit", name="deliveryinfo", value="Send Courier!", class="button")

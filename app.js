@@ -84,10 +84,17 @@ app.get('/logout', function(req, res){
   res.redirect('/login');
 });
 
-app.get('/deliver', function(req, res){
+app.get('/deliver', ensureAuthenticated, function(req, res){
+  if (!req.user.patient)
+    res.redirect('/register');
   res.render("deliver", {
+    user: req.user,
     title: 'Deliver'
   });
+});
+
+app.post('/deliver', function(req, res){
+  req.body.homeaddress;
 });
 
 app.get("/register", ensureAuthenticated, function(req, res) {

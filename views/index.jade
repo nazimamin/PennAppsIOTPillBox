@@ -6,7 +6,7 @@ block content
 	#container.col
 		.heading
 			-var patient = user.patient
-			h1.page_title PillStacks
+			h1.page_title PillCheckerUpper
 			h2 Welcome to #{patient}'s Page
 			//____ is whatever was put into 'patient' in the registration page
 
@@ -58,8 +58,8 @@ block content
 					input(type='submit', name='alert', value='Send Alert', class='button', id='alert')
 			br
 			br
-			//- if day == 0
-			//- 	h3 Would you like to send a refill courier to #{patient}'s house?
-			//- 	#userAlert
-			//- 		a(href="/deliver")
-			//- 			button(name='courier', class='button', id='alert') Send Courier
+			if day == 0
+				h3 Would you like to send a refill courier to #{patient}'s house?
+				#userAlert
+					a(href="/deliver")
+						button(name='courier', class='button', id='alert') Send Courier
