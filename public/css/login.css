@@ -3,20 +3,24 @@ body {
 	background-size: 100%;
 }
 
+#container {
+	margin-top: 100px;
+}
+
 #loginArea {
 	background: #CEEAFD;
-	padding: 2%;
+	padding: 20px;
 	float: right;
-	width: 30%;
+	width: 350px;
 	border-radius: 20px;
-	margin-right: 2%;
+	margin-right: 25px;
 }
 
 #description {
-	width: 60%;
+	width: 700px;
 	float: left;
-	padding: 2%;
-	margin-left: -4.5%;
+	padding: 20px;
+	margin-left: -50px;
 }
 
 #description_text {
@@ -28,6 +32,7 @@ body {
 }
 
 #google {
-	width: 51%;
-	margin-bottom: -3%;
+	width: 180px;
+	height: 30px;
+	margin-bottom: -10px;
 }
