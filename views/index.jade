@@ -11,8 +11,10 @@ block content
 			//____ is whatever was put into 'patient' in the registration page
 
 		br
-		-
 		-var day = new Date().getDay()
+		-for (var i = day; i < 7; ++i)
+			if user.pillbox[i]
+				-var wrongDay = i + 1
 		#status
 			case day
 				when 0
@@ -31,8 +33,8 @@ block content
 					h2 Saturday
 			if user.pillbox[day]
 				h3 #{patient} has taken their pills today!
-			else if user.pillbox[(day+1)%6]
-				h3 #{patient} has accidentally taken the next day's pills!
+			else if wrongDay
+				h3 #{patient} has accidentally taken the pills for day #{wrongDay}!
 			else
 				h3 #{patient} has not taken today's pills yet.
 				br

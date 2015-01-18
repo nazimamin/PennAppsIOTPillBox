@@ -49,10 +49,28 @@ app.use(passport.session());
 app.get("/", ensureAuthenticated, function(req, res) {
   if (!req.user.patient)
     res.redirect('/register');
+  req.user.pillbox = [false, false, true, false, false, false, false];
+  req.user.save();
   res.render("index", {
     user: req.user,
     title: 'Pill Stats!'
   });
+});
+
+app.post("/api/updateStatus", function(req, res) {
+  // console.log(req.body);
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+        var pillbox = JSON.parse(req.body.pillbox);
+        if (user) {
+          if (pillbox.length == 7) {
+            user.pillbox = pillbox;
+          }
+          user.save();
+          return user;
+        }
+    });
 });
 
 app.get("/login", function(req, res) {
@@ -65,6 +83,10 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/login');
 });
+
+// app.post('/alert', function(req, res){
+  
+// });
 
 app.get("/register", ensureAuthenticated, function(req, res) {
   res.render("register", {
