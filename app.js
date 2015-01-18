@@ -49,8 +49,8 @@ app.use(passport.session());
 app.get("/", ensureAuthenticated, function(req, res) {
   if (!req.user.patient)
     res.redirect('/register');
-  req.user.pillbox = [false, false, true, false, false, false, false];
-  req.user.save();
+  // req.user.pillbox = [false, false, true, false, false, false, false];
+  // req.user.save();
   res.render("index", {
     user: req.user,
     title: 'Pill Stats!'
