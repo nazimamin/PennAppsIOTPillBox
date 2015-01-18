@@ -35,6 +35,9 @@ app.set("view engine", "jade");
 app.use(express.static("public", __dirname + "/public"));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.use(session({secret: secrets.sessionSecret, resave: true, saveUninitialized: true}));
 // Initialize Passport!  Also use passport.session() middleware, to support
@@ -44,11 +47,18 @@ app.use(passport.session());
 
 //route homepage
 app.get("/", ensureAuthenticated, function(req, res) {
-  res.render("index", { user: req.user });
+  if (!req.user.patient)
+    res.redirect('/register');
+  res.render("index", {
+    user: req.user,
+    title: 'Pill Stats!'
+  });
 });
 
 app.get("/login", function(req, res) {
-  res.render("login");
+  res.render("login", {
+    title: 'Login'
+  });
 });
 
 app.get('/logout', function(req, res){
@@ -57,12 +67,14 @@ app.get('/logout', function(req, res){
 });
 
 app.get("/register", ensureAuthenticated, function(req, res) {
-  res.render("register");
+  res.render("register", {
+    title: 'Register Patient Name'
+  });
 });
 
-app.post("/register", ensureAuthenticated, function(req, res) {
-  console.log(req.body);
-  // req.user.patient = req.body.patient;
+app.post("/register", function(req, res) {
+  req.user.patient = req.body.patient;
+  req.user.save();
   res.redirect('/');
 });
 

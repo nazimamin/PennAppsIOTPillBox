@@ -5,25 +5,42 @@ block stylesheet
 block content
 	#container.col
 		.heading
-			h1.page_title IOTPillBox
-			h2 Welcome to ____'s Page
+			-var patient = user.patient
+			h1.page_title PillCheckerUpper
+			h2 Welcome to #{patient}'s Page
 			//____ is whatever was put into 'patient' in the registration page
 
 		br
-
+		-
+		-var day = new Date().getDay()
 		#status
-			h2 It looks like you're not connected to an Arduino device.
-			//
-				put in status message here
-				if patient has taken today's pills:
-					____ has taken today's pills.
-				else if patient has taken a different day's pills:
-					____ has taken a different day's pills!
-				else:
-					____ has not taken today's pills yet.
-		#user_alert
-			p#alert_description If you would like to alert ___ to take today's pills, please click the button below.
-			input(type='submit', name='alert', value='Send Alert', class='button', id='alert')
+			case day
+				when 0
+					h2 Sunday
+				when 1
+					h2 Monday
+				when 2
+					h2 Tuesday
+				when 3
+					h2 Wednesday
+				when 4
+					h2 Thursday
+				when 5
+					h2 Friday
+				when 6
+					h2 Saturday
+			if user.pillbox[day]
+				h3 #{patient} has taken their pills today!
+			else if user.pillbox[(day+1)%6]
+				h3 #{patient} has accidentally taken the next day's pills!
+			else
+				h3 #{patient} has not taken today's pills yet.
+				br
+				br
+				br
+				h4 Would you like to alert #{patient} to take today's pills?
+				#userAlert
+					input(type='submit', name='alert', value='Send Alert', class='button', id='alert')
 
 //
 	we also need a functionality that,

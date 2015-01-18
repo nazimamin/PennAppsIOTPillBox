@@ -17,10 +17,12 @@ body {
 #status {
 	width: 600px;
 	text-align: center;
-	margin: -40px auto 30px;
+	margin: -20px auto 30px;
 	background: #CEEAFD;
 	border-radius: 20px;
 	padding: 75px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 #user_alert {

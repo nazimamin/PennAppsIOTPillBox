@@ -8,7 +8,7 @@ block content
     br
     p It looks like your account isn't connected to anyone yet. Enter the info below to get started.
     br
-    form(name='input')
-      input(type='text', name='patient', value='Patient Name', onFocus="this.value=''")
+    form(method="POST", action="/register")
+      input(type='text', name='patient', placeholder='Patient Name')
       br
-      input(type='submit', class='button', id='register', value='Register')
+      input(type='submit', class='button', value='Register')
