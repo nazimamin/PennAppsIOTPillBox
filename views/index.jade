@@ -14,7 +14,8 @@ block content
 		-var day = new Date().getDay()
 		-for (var i = day; i < 7; ++i)
 			if user.pillbox[i]
-				-var wrongDay = i + 1
+				-var wrongDay = i
+				-break
 		#status
 			case day
 				when 0
