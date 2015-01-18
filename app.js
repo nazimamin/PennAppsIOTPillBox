@@ -84,9 +84,11 @@ app.get('/logout', function(req, res){
   res.redirect('/login');
 });
 
-// app.post('/alert', function(req, res){
-  
-// });
+app.get('/deliver', function(req, res){
+  res.render("deliver", {
+    title: 'Deliver'
+  });
+});
 
 app.get("/register", ensureAuthenticated, function(req, res) {
   res.render("register", {

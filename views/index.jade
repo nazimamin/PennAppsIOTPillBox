@@ -6,7 +6,7 @@ block content
 	#container.col
 		.heading
 			-var patient = user.patient
-			h1.page_title PillStacks
+			h1.page_title PillCheckerUpper
 			h2 Welcome to #{patient}'s Page
 			//____ is whatever was put into 'patient' in the registration page
 
@@ -34,7 +34,19 @@ block content
 			if user.pillbox[day]
 				h3 #{patient} has taken their pills today!
 			else if wrongDay
-				h3 #{patient} has accidentally taken the pills for day #{wrongDay}!
+				case wrongDay
+					when 1
+						h3 #{patient} has accidentally taken the pills for Monday!
+					when 2
+						h3 #{patient} has accidentally taken the pills for Tuesday!
+					when 3
+						h3 #{patient} has accidentally taken the pills for Wednesday!
+					when 4
+						h3 #{patient} has accidentally taken the pills for Thursday!
+					when 5
+						h3 #{patient} has accidentally taken the pills for Friday!
+					when 6
+						h3 #{patient} has accidentally taken the pills for Saturday!
 			else
 				h3 #{patient} has not taken today's pills yet.
 				br
@@ -43,13 +55,10 @@ block content
 				h4 Would you like to alert #{patient} to take today's pills?
 				#userAlert
 					input(type='submit', name='alert', value='Send Alert', class='button', id='alert')
-
-//
-	we also need a functionality that,
-		if a different day's pills have been taken,
-		or if it passes some arbitrary time like 9:00pm or 10:00pm
-	will alert the family with a text message saying:
-		____ has taken a different day's pills!
-		or
-		____ has not taken today's pills yet.
-		depending on what actually happened, of course
+			br
+			br
+			//- if day == 0
+			//- 	h3 Would you like to send a refill courier to #{patient}'s house?
+			//- 	#userAlert
+			//- 		a(href="/deliver")
+			//- 			button(name='courier', class='button', id='alert') Send Courier
