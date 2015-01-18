@@ -1,4 +1,4 @@
-#include <SPI.h>
+
 #include <Dhcp.h>
 #include <Dns.h>
 #include <WiFi.h>
@@ -86,7 +86,7 @@ void loop() {
   
   for(int k=2;k<9 ;k++){ //turn off all the 
   if(k!=currentLED)
-    digitalWrite(k,LOW);
+    digitalWrite(k,HIGH);
   }
   
   //turn on only the led for the current day
@@ -116,32 +116,30 @@ void loop() {
         if (c == '\n' && newLine) {
           // send a standard http response header
           client.println("HTTP/1.1 200 OK");
-          client.println("Content-Type: text/html");
+          client.println("Content-Type: application/json"); //send a json file
           client.println("Connection: close");  // the connection will be closed after completion of the response
           client.println("Refresh: 5");  // refresh the page automatically every 5 sec
           client.println();
-          client.println("<!DOCTYPE HTML>");
-          client.println("<html>");
+          
 
-          //output the current pwm pin that's in use
-          client.print("the current pwm is");
-          client.print(currentLED);
-          client.println("</br>");
+          client.println("{");
           
           //loop through and print out the status of each compartment
           for(int k = 0; k<7;k++){
-            client.print("Day ");
+             client.print("\" ");
             client.print(k);
-            client.print(" is ");
+            client.print("\" ");
+            client.print(" : ");
             if(filled[k]){
-              client.print("filled");
+              client.print(" \"filled\"");
             }else{
-              client.print("empty");
+              client.print(" \"empty\"");
             }
-            client.print("</br>"); //make sure this is correct
+            
+            client.println("}");
           }
           
-          client.println("</html>");
+         
            break;
         }
         
