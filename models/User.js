@@ -3,17 +3,18 @@ var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
   photo: String,
   id: String,
+  email: { type: String, default: '' },
 
   provider: String,
-  microsoft: String,
-  // google: String,
+  facebook: String,
+  google: String,
   tokens: Array,
-  name: { type: String, default: '' },
+  name: { type: String, default: '' }
 
-  profile: {
-    gender: { type: String, default: '' },
-    website: { type: String, default: '' }
-  }
+  // profile: {
+  //   gender: { type: String, default: '' },
+  //   website: { type: String, default: '' }
+  // }
 });
 
 /**
