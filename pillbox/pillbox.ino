@@ -28,12 +28,6 @@ int THURSDAY = 4;
 int FRIDAY =  5;
 int SATURDAY = 6;
 
-char ssid[] = "pennpillbox";      // SSID (name) 
-char pass[] = "12345678";   // network password
-int keyIndex = 0;                 // network key Index number (needed only for WEP)
-int status = WL_IDLE_STATUS;
-WiFiServer server(80);
-
 void setup() {
   //start reading serial data
   Serial.begin(9600);
@@ -43,37 +37,15 @@ void setup() {
     pinMode(k,OUTPUT);
   }
   
-   // check for the presence of the shield:
-  if (WiFi.status() == WL_NO_SHIELD) {
-    Serial.println("WiFi shield not present"); 
-    while(true);        // don't continue
-  } 
-
-  String fv = WiFi.firmwareVersion();
-  if( fv != "1.1.0" )
-    Serial.println("Please upgrade the firmware");
-
-  // attempt to connect to Wifi network:
-  while ( status != WL_CONNECTED) { 
-    Serial.print("Attempting to connect to Network named: ");
-    Serial.println(ssid);                   // print the network name (SSID);
-
-    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:    
-    status = WiFi.begin(ssid, pass);
-    // wait 10 seconds for connection:
-    delay(10000);
-  } 
-  server.begin();                           // start the web server on port 80
-  printWifiStatus();                        // you're connected now, so print out the status
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly: 
+  // put your main code here, to run repeatedly
   
   boxopened = false;
   //start the client 
-  WiFiClient client = server.available();
+
     
   /*resistorValue = analogRead(0); //read in analog input at point 0
   Serial.print(resistorValue);
@@ -174,23 +146,3 @@ void loop() {
   }
 }
 
-
-void printWifiStatus() {
-  // print the SSID of the network you're attached to:
-  Serial.print("SSID: ");
-  Serial.println(WiFi.SSID());
-
-  // print your WiFi shield's IP address:
-  IPAddress ip = WiFi.localIP();
-  Serial.print("IP Address: ");
-  Serial.println(ip);
-
-  // print the received signal strength:
-  long rssi = WiFi.RSSI();
-  Serial.print("signal strength (RSSI):");
-  Serial.print(rssi);
-  Serial.println(" dBm");
-  // print where to go in a browser:
-  Serial.print("To see this page in action, open a browser to http://");
-  Serial.println(ip);
-}
