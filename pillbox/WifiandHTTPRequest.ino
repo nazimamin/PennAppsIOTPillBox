@@ -73,7 +73,6 @@ void setup() {
   printWifiStatus();                        // you're connected now, so print out the status
 
 }
-
 void loop() {
   // put your main code here, to run repeatedly: 
   
@@ -115,7 +114,7 @@ void loop() {
     Serial.println("client server connected");
     
     String clientMessage = "";
-    
+
     while(client.connected()){
       boolean newLine = true;
       if(client.available()){ //if the client is sending data
@@ -126,41 +125,19 @@ void loop() {
         // so you can send a reply
         if (c == '\n' && newLine) {
           // send a standard http response header
-          client.println("HTTP/1.1 200 OK");
-          client.println("Content-Type: application/json"); //send a json file
-          client.println("Connection: close");  // the connection will be closed after completion of the response
-          client.println("Refresh: 5");  // refresh the page automatically every 5 sec
-          client.println();
-          
-          client.println("{");
-          
-          //loop through and print out the status of each compartment
-          for(int k = 0; k<7;k++){
-             client.print("\" ");
-            client.print(k);
-            client.print("\" ");
-            client.print(" : ");
-            if(filled[k]){
-              client.print(" \"true\"");
-            }else{
-              client.print(" \"false\"");
-            }
-            
-            client.println("}");
+          client.println("POST /api/updateStatus HTTP/1.1");
+          client.println("Host: pillbox.ngrok.com"); 
+          client.println("Cache-control: no-cache");
+          client.println("Content-Type: application/x-www-form-urlencoded"); //send a json file
+
+          String message = "email=erickim213%40gmail.com&pillbox=%5B+";
+          for (int i = 0; i < 6; i++) {
+            message += filled[i] + "%2C+";
           }
-          
-         
-           break;
-        }
+          message += filled[6] + "+%5D";
+
+          client.println(message);  // the connection will be closed after completion of the response
         
-        if (c == '\n') {
-          // you're starting a new line
-          newLine = true;
-        } 
-        else if (c != '\r') {
-          // you've gotten a character on the current line
-          newLine = false;
-        }
       }
     }
     
