@@ -11,7 +11,7 @@ Intel-Edison, LED lights, photoresistor, node.js, mongodb, express.js, Postmates
 
 ## Contributors
 
-[@Nazim](http://github.com/nazimamin) [@Eric](http://github.com/airrick213) [@Varun](http://github.com/avarun42)[@Matt](http://github.com/toastking)
+Made with :hotsprings: by [@Nazim](http://github.com/nazimamin) [@Eric](http://github.com/airrick213) [@Varun](http://github.com/avarun42) [@Matt](http://github.com/toastking)
 
 
 ##.
