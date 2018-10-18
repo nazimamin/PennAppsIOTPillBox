@@ -6,7 +6,7 @@ An Intel Edison powered internet connected smart pillbox with a web interface th
 
 There are always those people who forgets to take pill. Those who take wrong pill on wrong days. And those who run out of pill when they strictly need it. *This is to solve that problem.*
 
-##Technology used
+## Technology used
 Intel-Edison, LED lights, photoresistor, node.js, mongodb, express.js, Postmates API.
 
 ## Contributors
